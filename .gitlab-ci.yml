@@ -1,0 +1,49 @@
+# place project specific paths in variables to make the rest of the script more generic
+variables:
+  NUGET_PATH: 'C:\NuGet\nuget.exe'
+  MSBUILD_PATH: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe'
+  GIT_SUBMODULE_STRATEGY: recursive
+  PROJECTNAME: 'Triton.WebApi'
+
+stages:
+  - build
+  - deploy
+
+Build and Deploy to Development:
+  stage: build
+  tags:  # the build process will only be started by git tag commits
+    -  dev
+  script:
+    - '"$env:Import-Module WebAdministration"'
+    - '"echo Stop Website"'
+    - '"$env:Stop-WebSite Triton.WebAPI"'
+    - '& "$env:NUGET_PATH" restore'  # restore Nuget dependencies
+    - '& "$env:MSBUILD_PATH" "$env:PROJECTNAME".csproj /p:DeployOnBuild=false /p:Configuration=Release /p:EnvironmentName=Development /p:PublishProfile="Properties\PublishProfiles\Development.pubxml"'  # build the project
+    - '"echo Starting Website"'
+    - '"$env:Start-WebSite Triton.WebAPI"'
+  artifacts:
+    expire_in: 30 mins  # save gitlab server space, we copy the files we need to deploy folder later on
+
+Deploy to Production:
+  stage: deploy
+  script:
+    - '"$env:Import-Module WebAdministration"'
+    - '"echo Stop Website"'
+   # - $siteName = "Triton.WebAPI"
+    #- $serverName = "neo"
+    #- $block = {Stop-WebSite $args[0]; Start-WebSite $args[0]};
+    #- $session = New-PSSession -ComputerName $serverName
+    #- Invoke-Command -Session $session -ScriptBlock $block -ArgumentList $siteName 
+
+    - '"$env:Stop-WebSite Triton.WebAPI"'    
+    - '& "$env:NUGET_PATH" restore'  # restore Nuget dependencies
+    - '& "$env:MSBUILD_PATH" "$env:PROJECTNAME".csproj /p:DeployOnBuild=true /p:Configuration=Release /p:EnvironmentName=Production /p:PublishProfile="Properties\PublishProfiles\Production.pubxml"'  # build the project
+    - '"$env:Start-WebSite Triton.WebAPI"'
+  environment:
+    name: production
+    url: http://neo:8089/swagger/index.html
+  artifacts:
+    expire_in: 30 mins     
+  when: manual
+  tags:
+    -  dev

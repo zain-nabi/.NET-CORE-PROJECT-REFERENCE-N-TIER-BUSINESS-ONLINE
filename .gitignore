@@ -1,0 +1,25 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Triton.WebApi
+/bin/Debug/netcoreapp3.1
+/obj
+/bin/Release/netcoreapp3.1
+/.vs
+/src/Triton.Core/obj
+/src/Triton.Core/bin/Debug/netstandard2.1
+/src/Triton.Interface/bin/Debug/netstandard2.1
+/src/Triton.Interface/obj
+/src/Triton.Model/bin/Debug/netstandard2.1
+/src/Triton.Model/obj
+/src/Triton.Repository/bin/Debug/netstandard2.1
+/src/Triton.Repository/obj
+/src/Triton.WebApi/bin
+/src/Triton.WebApi/obj
+/src/Vendor.Services/bin/Debug/netstandard2.1
+/src/Vendor.Services/obj
+/src/Triton.Core/bin/Release/netstandard2.1
+/src/Triton.Interface/bin/Release/netstandard2.1
+/src/Triton.Model/bin/Release/netstandard2.1
+/src/Vendor.Services/bin/Release/netstandard2.1

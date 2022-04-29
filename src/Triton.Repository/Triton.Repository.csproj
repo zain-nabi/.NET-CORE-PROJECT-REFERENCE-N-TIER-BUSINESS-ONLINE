@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Vehicles\" />
+    <Folder Include="PurchaseOrders\" />
+    <Folder Include="Operations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.35" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Triton.Core\Triton.Core.csproj" />
+    <ProjectReference Include="..\Triton.Interface\Triton.Interface.csproj" />
+    <ProjectReference Include="..\Triton.Model\Triton.Model.csproj" />
+    <ProjectReference Include="..\Vendor.Services\Vendor.Services.csproj" />
+  </ItemGroup>
+
+</Project>

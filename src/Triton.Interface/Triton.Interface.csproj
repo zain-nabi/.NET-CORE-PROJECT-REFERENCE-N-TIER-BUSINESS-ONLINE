@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Triton.Model\Triton.Model.csproj" />
+    <ProjectReference Include="..\Vendor.Services\Vendor.Services.csproj" />
+  </ItemGroup>
+
+</Project>
